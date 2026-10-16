@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath fill=%27%23101B2C%27 d=%27M6 30V13.5a10 10 0 0 1 20 0V30z%27/%3E%3Ccircle cx=%2716%27 cy=%2715.5%27 r=%273.2%27 fill=%27%23E3A21A%27/%3E%3Cpath fill=%27%23E3A21A%27 d=%27M14.4 17.5h3.2l1.3 7.5h-5.8z%27/%3E%3C/svg%3E">
+<title>Porter Security</title>
+<meta name="description" content="Porter Security: cyberveiligheid voor KMO's, volledig op afstand. Microsoft 365-beveiliging, NIS2 en CyberFundamentals, met een vast maandabonnement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a fortress ledger. Left-aligned editorial column, a "control sheet" card as the hero object, pricing as a plain comparison grid. */
+:root{
+  --paper:#F2F4F6; --surface:#FFFFFF; --ink:#101B2C; --muted:#56637A; --line:#D3DAE3;
+  --signal:#E3A21A; --signal-ink:#1C1404; --ok:#2E7A57; --warn:#B4541E;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius:6px; --max:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1220; --surface:#121B2D; --ink:#E7ECF3; --muted:#9AA6B9; --line:#24324B;
+  --signal:#F0B23A; --signal-ink:#1C1404; --ok:#57B38A; --warn:#E08A55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1220; --surface:#121B2D; --ink:#E7ECF3; --muted:#9AA6B9; --line:#24324B;
+  --signal:#F0B23A; --signal-ink:#1C1404; --ok:#57B38A; --warn:#E08A55; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px;padding-block:0}
+:root[data-lang="nl"] .en, :root[data-lang="en"] .nl{display:none !important}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--max);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-0.01em}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:60ch;font-size:1.08rem}
+section{padding-block:clamp(56px,9vw,104px);border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--paper);margin-inline:-20px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px;flex:none}
+.brand-sub{font-weight:500;color:var(--muted)}
+@media (max-width:420px){.brand-sub{display:none}}
+nav.links{display:flex;gap:22px;font-size:.95rem}
+nav.links a{text-decoration:none;color:var(--muted)}
+nav.links a:hover{color:var(--ink)}
+.tools{display:flex;align-items:center;gap:10px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-family:var(--mono);font-size:.78rem}
+.lang button{background:none;border:0;padding:6px 10px;cursor:pointer;color:var(--muted);font:inherit}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:var(--radius);font-weight:600;text-decoration:none;border:1px solid var(--ink);cursor:pointer;font:600 1rem var(--body);background:none;color:var(--ink)}
+.btn.primary{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.small{padding:8px 14px;font-size:.9rem}
+@media (max-width:860px){nav.links{display:none}}
+@media (max-width:420px){.tools .btn.small{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,64px);align-items:center;padding-block:clamp(48px,8vw,96px)}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%, color-mix(in srgb,var(--signal) 55%,transparent) 62%)}
+.hero .lede{margin-top:22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero .note{margin-top:18px;font-size:.9rem;color:var(--muted)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+
+/* control sheet */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;font-size:.93rem;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(10,20,40,.45)}
+.sheet-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:6px}
+.sheet-top b{font-family:var(--display);font-size:1.05rem}
+.tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:2px 6px;color:var(--muted);white-space:nowrap}
+.ctl{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.ctl:last-of-type{border-bottom:0}
+.ctl code{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:.72rem;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.pill.todo{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.score{display:flex;align-items:center;gap:12px;margin-top:14px}
+.meter{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;width:62%;background:var(--signal)}
+.score span{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.why > div{display:grid;gap:10px;align-content:start;padding-top:18px;border-top:3px solid var(--ink)}
+.why p{color:var(--muted)}
+@media (max-width:820px){.why{grid-template-columns:1fr}}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.svc > div{padding:28px;display:grid;gap:10px;align-content:start;border-bottom:1px solid var(--line)}
+.svc > div:nth-child(odd){border-right:1px solid var(--line)}
+.svc > div:nth-last-child(-n+2){border-bottom:0}
+.svc p{color:var(--muted)}
+.svc ul{margin:4px 0 0;padding-left:18px;color:var(--muted);font-size:.95rem}
+@media (max-width:760px){.svc{grid-template-columns:1fr}.svc > div:nth-child(odd){border-right:0}.svc > div:nth-last-child(2){border-bottom:1px solid var(--line)}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.steps li{list-style:none;display:grid;gap:8px;align-content:start}
+.steps li::before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);font-size:.85rem;color:var(--signal);font-weight:500}
+.steps p{color:var(--muted);font-size:.96rem}
+.steps{padding:0;margin:0}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px;display:grid;gap:16px}
+.plan.feat{border:2px solid var(--ink)}
+.plan .price{font-family:var(--display);font-size:2.4rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.plan .price small{font-family:var(--body);font-size:.9rem;font-weight:500;color:var(--muted)}
+.plan .min{margin-top:8px;font-size:.85rem;color:var(--muted)}
+.plan .price:has(> span){font-size:1.9rem}
+.plan .for{color:var(--muted);font-size:.95rem}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:9px;font-size:.95rem}
+.plan li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.plan li::before{content:"";width:10px;height:10px;margin-top:7px;border:2px solid var(--ok);border-radius:2px}
+.badge{justify-self:start;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:var(--signal);color:var(--signal-ink);padding:3px 8px;border-radius:4px}
+.scan{margin-top:20px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;border:1px dashed var(--muted);border-radius:10px;padding:22px 26px}
+.scan > div{min-width:0;max-width:62ch}
+.scan p{color:var(--muted)}
+.fine{margin-top:14px;font-size:.85rem;color:var(--muted)}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+.about > *{min-width:0}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:10px;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--signal) 22%,var(--surface)) 0%,var(--surface) 70%);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-size:3rem;font-weight:800;color:var(--muted);width:100%;height:auto;object-fit:cover;object-position:center top}
+.about .lede{margin-top:16px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.facts span{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.88rem}
+@media (max-width:640px){.about{grid-template-columns:1fr}.portrait{max-width:200px}}
+
+/* faq */
+.faq{display:grid;gap:0;max-width:820px}
+details{border-bottom:1px solid var(--line);padding-block:18px}
+summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+details[open] summary::after{content:"\2212"}
+details p{margin-top:10px;color:var(--muted);max-width:68ch}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact > *{min-width:0}
+form{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px}
+label{display:grid;gap:6px;font-size:.9rem;font-weight:500}
+input,select,textarea{font:inherit;font-size:1rem;padding:11px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);color:var(--ink);width:100%}
+textarea{min-height:110px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ok-msg{border-left:3px solid var(--ok);padding:10px 14px;background:color-mix(in srgb,var(--ok) 10%,transparent);font-size:.95rem}
+.mail{font-family:var(--mono);font-size:1rem;user-select:all}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+@media (max-width:460px){.row2{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding-block:36px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between}
+@media (prefers-reduced-motion:no-preference){.meter i{animation:fill 1.4s ease-out both}@keyframes fill{from{width:8%}}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Porter Security">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="var(--ink)" d="M6 30V13.5a10 10 0 0 1 20 0V30z"/><circle cx="16" cy="15.5" r="3.2" fill="var(--signal)"/><path fill="var(--signal)" d="M14.4 17.5h3.2l1.3 7.5h-5.8z"/></svg>
+      <span>Porter<span class="brand-sub"> Security</span></span>
+    </a>
+    <nav class="links" aria-label="Hoofdmenu">
+      <a href="#diensten"><span class="nl">Diensten</span><span class="en">Services</span></a>
+      <a href="#werkwijze"><span class="nl">Werkwijze</span><span class="en">How it works</span></a>
+      <a href="#prijzen"><span class="nl">Prijzen</span><span class="en">Pricing</span></a>
+      <a href="#over"><span class="nl">Over</span><span class="en">About</span></a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Taal / Language">
+        <button type="button" id="btn-nl" data-set="nl" aria-pressed="true">NL</button>
+        <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn primary small" href="#contact"><span class="nl">Gratis kennismaking</span><span class="en">Free intro call</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <p class="eyebrow"><span class="nl">Cyberveiligheid voor KMO's, volledig op afstand</span><span class="en">Cybersecurity for SMEs, fully remote</span></p>
+      <h1 style="margin-top:16px">
+        <span class="nl">Uw bedrijf <em>veilig</em>, zonder dat u er zelf expert in moet worden.</span>
+        <span class="en">Your business <em>secure</em>, without becoming an expert yourself.</span>
+      </h1>
+      <p class="lede">
+        <span class="nl">Porter Security beveiligt uw Microsoft 365, uw toestellen en uw medewerkers, en brengt u stap voor stap in orde met de Europese NIS2-regels, aan de hand van het CyberFundamentals-kader. Een vaste prijs per gebruiker per maand, in duidelijke taal.</span>
+        <span class="en">Porter Security secures your Microsoft 365, your devices and your people, and brings you in line with the European NIS2 rules, step by step, using the CyberFundamentals framework. A fixed price per user per month, in plain language.</span>
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#contact"><span class="nl">Plan een gratis kennismaking</span><span class="en">Book a free intro call</span></a>
+        <a class="btn" href="#prijzen"><span class="nl">Bekijk de pakketten</span><span class="en">See the plans</span></a>
+      </div>
+      <p class="note"><span class="nl">Nederlands, Frans en Engels. Antwoord binnen 1 werkdag.</span><span class="en">Dutch, French and English. Reply within 1 business day.</span></p>
+    </div>
+
+    <aside class="sheet" aria-label="Voorbeeld controlerapport">
+      <div class="sheet-top">
+        <b><span class="nl">Controlerapport</span><span class="en">Control report</span></b>
+        <span class="tag"><span class="nl">Voorbeeld</span><span class="en">Example</span></span>
+      </div>
+      <div class="ctl"><code>ID</code><span class="nl">Overzicht van toestellen en accounts</span><span class="en">Inventory of devices and accounts</span><span class="pill ok">OK</span></div>
+      <div class="ctl"><code>PR</code><span class="nl">MFA op alle Microsoft 365-accounts</span><span class="en">MFA on every Microsoft 365 account</span><span class="pill ok">OK</span></div>
+      <div class="ctl"><code>PR</code><span class="nl">Back-ups getest en offline bewaard</span><span class="en">Backups tested and stored offline</span><span class="pill todo"><span class="nl">Te doen</span><span class="en">To do</span></span></div>
+      <div class="ctl"><code>PR</code><span class="nl">Phishingtraining voor medewerkers</span><span class="en">Phishing training for staff</span><span class="pill todo"><span class="nl">Te doen</span><span class="en">To do</span></span></div>
+      <div class="ctl"><code>RS</code><span class="nl">Plan voor als het toch misloopt</span><span class="en">Plan for when something goes wrong</span><span class="pill ok">OK</span></div>
+      <div class="score"><div class="meter"><i></i></div><span>62% · CyberFundamentals Basic</span></div>
+    </aside>
+  </div>
+
+  <section aria-labelledby="why-h">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="nl">Waarom nu</span><span class="en">Why now</span></p>
+      <h2 id="why-h"><span class="nl">Ook kleine bedrijven worden aangevallen.</span><span class="en">Small businesses get attacked too.</span></h2>
+    </div>
+    <div class="why">
+      <div>
+        <h3><span class="nl">Aanvallen zijn geautomatiseerd</span><span class="en">Attacks are automated</span></h3>
+        <p><span class="nl">Aanvallers scannen het internet automatisch op zwakke wachtwoorden en accounts zonder MFA. Hoe groot uw bedrijf is, maakt daarbij niet uit.</span><span class="en">Attackers automatically scan the internet for weak passwords and accounts without MFA. The size of your business makes no difference.</span></p>
+      </div>
+      <div>
+        <h3><span class="nl">NIS2 geldt voor meer sectoren</span><span class="en">NIS2 covers more sectors</span></h3>
+        <p><span class="nl">Door de Europese NIS2-richtlijn moeten duizenden organisaties in heel Europa aan verplichte cyberregels voldoen, ook voor hun leveranciers. In België is dat wet sinds oktober 2024. Wie aan hen levert, krijgt dus steeds vaker de vraag om bewijs.</span><span class="en">Under the EU's NIS2 directive, thousands of organisations across Europe must meet mandatory cybersecurity rules, including for their suppliers. In Belgium it has been law since October 2024. If you supply them, expect to be asked for proof.</span></p>
+      </div>
+      <div>
+        <h3><span class="nl">Geen IT-afdeling nodig</span><span class="en">No IT department needed</span></h3>
+        <p><span class="nl">U krijgt een vaste contactpersoon die uw beveiliging opvolgt en u elke maand laat weten hoe het ervoor staat. Zonder lange contracten.</span><span class="en">You get one contact person who keeps an eye on your security and tells you every month where things stand. No long contracts.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="diensten" aria-labelledby="svc-h">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="nl">Diensten</span><span class="en">Services</span></p>
+      <h2 id="svc-h"><span class="nl">Wat we voor u doen.</span><span class="en">What we do for you.</span></h2>
+    </div>
+    <div class="svc">
+      <div>
+        <h3><span class="nl">Microsoft 365-beveiliging</span><span class="en">Microsoft 365 security</span></h3>
+        <p><span class="nl">De plek waar uw mails, bestanden en accounts zitten, goed dichtgezet.</span><span class="en">Where your email, files and accounts live, properly locked down.</span></p>
+        <ul><li><span class="nl">MFA en sterke aanmeldregels</span><span class="en">MFA and strong sign-in rules</span></li><li><span class="nl">Bescherming tegen phishing en spoofing</span><span class="en">Protection against phishing and spoofing</span></li><li><span class="nl">Rechten en gedeelde bestanden opgekuist</span><span class="en">Permissions and shared files cleaned up</span></li></ul>
+      </div>
+      <div>
+        <h3><span class="nl">NIS2 en CyberFundamentals</span><span class="en">NIS2 and CyberFundamentals</span></h3>
+        <p><span class="nl">Weten waar u staat en wat er nog moet gebeuren, volgens het kader van het Centrum voor Cybersecurity België.</span><span class="en">Know where you stand and what is left to do, using the framework of the Centre for Cybersecurity Belgium.</span></p>
+        <ul><li><span class="nl">Nulmeting en actieplan</span><span class="en">Baseline assessment and action plan</span></li><li><span class="nl">Beleid en documenten op maat</span><span class="en">Tailored policies and documents</span></li><li><span class="nl">Opvolging per kwartaal</span><span class="en">Quarterly follow-up</span></li></ul>
+      </div>
+      <div>
+        <h3><span class="nl">Toestellen en back-ups</span><span class="en">Devices and backups</span></h3>
+        <p><span class="nl">Laptops up-to-date, versleuteld en beheerd, en back-ups die echt werken als het nodig is.</span><span class="en">Laptops patched, encrypted and managed, and backups that actually work when needed.</span></p>
+        <ul><li><span class="nl">Windows en macOS veilig ingesteld</span><span class="en">Windows and macOS set up securely</span></li><li><span class="nl">Updates opgevolgd</span><span class="en">Updates monitored</span></li><li><span class="nl">Getest of back-ups echt terug te zetten zijn</span><span class="en">Tested to make sure backups can actually be restored</span></li></ul>
+      </div>
+      <div>
+        <h3><span class="nl">Uw medewerkers</span><span class="en">Your people</span></h3>
+        <p><span class="nl">Veel incidenten beginnen met een klik. Korte, praktische training maakt het verschil.</span><span class="en">Many incidents start with a click. Short, practical training makes the difference.</span></p>
+        <ul><li><span class="nl">Phishingsimulaties</span><span class="en">Phishing simulations</span></li><li><span class="nl">Korte sessies in uw taal</span><span class="en">Short sessions in your language</span></li><li><span class="nl">Duidelijke afspraken bij een incident</span><span class="en">Clear steps when an incident happens</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="werkwijze" aria-labelledby="proc-h">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="nl">Werkwijze</span><span class="en">How it works</span></p>
+      <h2 id="proc-h"><span class="nl">Zo pakken we het aan.</span><span class="en">How we work.</span></h2>
+    </div>
+    <ol class="steps">
+      <li><h3><span class="nl">Kennismaking</span><span class="en">Intro call</span></h3><p><span class="nl">30 minuten, gratis. We bekijken samen hoe uw bedrijf werkt en wat u al heeft.</span><span class="en">30 minutes, free. We look at how your business works and what you already have.</span></p></li>
+      <li><h3><span class="nl">Quickscan</span><span class="en">Quickscan</span></h3><p><span class="nl">Gratis. We controleren uw Microsoft 365 en geven u een overzicht van de grootste risico's.</span><span class="en">Free. We check your Microsoft 365 and give you an overview of the biggest risks.</span></p></li>
+      <li><h3><span class="nl">In orde brengen</span><span class="en">Fix</span></h3><p><span class="nl">De belangrijkste gaten eerst. U ziet in uw rapport wat er veranderd is.</span><span class="en">The biggest gaps first. Your report shows what changed.</span></p></li>
+      <li><h3><span class="nl">Blijvend opvolgen</span><span class="en">Ongoing care</span></h3><p><span class="nl">Elke maand een rapport, elk kwartaal een gesprek. Zo blijft het veilig.</span><span class="en">A report every month, a review every quarter. That keeps it secure.</span></p></li>
+    </ol>
+  </section>
+
+  <section id="prijzen" aria-labelledby="price-h">
+    <div class="sec-head">
+      <p class="eyebrow"><span class="nl">Prijzen</span><span class="en">Pricing</span></p>
+      <h2 id="price-h"><span class="nl">Per gebruiker per maand. Maandelijks opzegbaar.</span><span class="en">Per user per month. Cancel monthly.</span></h2>
+      <p class="lede"><span class="nl">U betaalt per persoon die met Microsoft 365 werkt. Na de kennismaking krijgt u een vaste offerte.</span><span class="en">You pay per person who works with Microsoft 365. After the intro call you get a fixed quote.</span></p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Basis</h3>
+        <p class="for"><span class="nl">Voor zelfstandigen en kleine teams.</span><span class="en">For freelancers and small teams.</span></p>
+        <div><p class="price">&euro;19<small>/<span class="nl">gebruiker/maand</span><span class="en">user/month</span></small></p><p class="min"><span class="nl">Minimum &euro;79 per maand</span><span class="en">Minimum &euro;79 per month</span></p></div>
+        <ul>
+          <li><span class="nl">Microsoft 365-beveiliging ingesteld</span><span class="en">Microsoft 365 security set up</span></li>
+          <li><span class="nl">MFA voor iedereen</span><span class="en">MFA for everyone</span></li>
+          <li><span class="nl">Maandelijks controlerapport</span><span class="en">Monthly control report</span></li>
+          <li><span class="nl">Hulp per mail op werkdagen</span><span class="en">Email support on business days</span></li>
+        </ul>
+        <a class="btn" href="#contact"><span class="nl">Kies Basis</span><span class="en">Choose Basis</span></a>
+      </div>
+      <div class="plan feat">
+        <span class="badge"><span class="nl">Aanrader</span><span class="en">Recommended</span></span>
+        <h3><span class="nl">Beschermd</span><span class="en">Protected</span></h3>
+        <p class="for"><span class="nl">Voor KMO's met 5 medewerkers of meer.</span><span class="en">For SMEs with 5 or more staff.</span></p>
+        <div><p class="price">&euro;32<small>/<span class="nl">gebruiker/maand</span><span class="en">user/month</span></small></p><p class="min"><span class="nl">Minimum &euro;159 per maand</span><span class="en">Minimum &euro;159 per month</span></p></div>
+        <ul>
+          <li><span class="nl">Alles uit Basis</span><span class="en">Everything in Basis</span></li>
+          <li><span class="nl">Toestellen en updates opgevolgd</span><span class="en">Devices and updates monitored</span></li>
+          <li><span class="nl">Back-ups gecontroleerd en getest</span><span class="en">Backups checked and tested</span></li>
+          <li><span class="nl">Phishingsimulatie per kwartaal</span><span class="en">Quarterly phishing simulation</span></li>
+          <li><span class="nl">Actieplan voor CyberFundamentals Basic</span><span class="en">CyberFundamentals Basic action plan</span></li>
+        </ul>
+        <a class="btn primary" href="#contact"><span class="nl">Kies Beschermd</span><span class="en">Choose Protected</span></a>
+      </div>
+      <div class="plan">
+        <h3><span class="nl">NIS2 op maat</span><span class="en">Custom NIS2</span></h3>
+        <p class="for"><span class="nl">Voor bedrijven die voor een klant of de wet moeten aantonen dat hun beveiliging in orde is.</span><span class="en">For businesses that must show a customer or the law that their security is in order.</span></p>
+        <div><p class="price"><span class="nl">Op aanvraag</span><span class="en">On request</span></p><p class="min"><span class="nl">Prijs in een offerte op maat</span><span class="en">Price in a tailored quote</span></p></div>
+        <ul>
+          <li><span class="nl">Alles uit Beschermd</span><span class="en">Everything in Protected</span></li>
+          <li><span class="nl">CyberFundamentals-nulmeting en opvolging</span><span class="en">CyberFundamentals baseline and follow-up</span></li>
+          <li><span class="nl">Beleid en documenten op maat</span><span class="en">Tailored policies and documents</span></li>
+          <li><span class="nl">Kwartaalgesprek met de zaakvoerder</span><span class="en">Quarterly review with management</span></li>
+        </ul>
+        <a class="btn" href="#contact"><span class="nl">Vraag een offerte</span><span class="en">Request a quote</span></a>
+      </div>
+    </div>
+    <div class="scan">
+      <div>
+        <h3><span class="nl">Liever eerst weten waar u staat?</span><span class="en">Want to know where you stand first?</span></h3>
+        <p><span class="nl">Een korte controle van uw Microsoft 365 op afstand, met een overzicht van de grootste risico's. Gratis en vrijblijvend.</span><span class="en">A short remote check of your Microsoft 365, with an overview of the biggest risks. Free, no strings attached.</span></p>
+      </div>
+      <a class="btn primary" href="#contact"><span class="nl">Gratis Quickscan</span><span class="en">Free Quickscan</span></a>
+    </div>
+    <p class="fine"><span class="nl">Er wordt geen btw aangerekend (bijzondere vrijstellingsregeling kleine ondernemingen). Licenties (zoals Microsoft 365 of back-upsoftware) zijn niet inbegrepen.</span><span class="en">No VAT is charged (Belgian small business exemption scheme). Licences (such as Microsoft 365 or backup software) are not included.</span></p>
+  </section>
+
+  <section id="over" aria-labelledby="about-h">
+    <div class="about">
+      <img class="portrait" src="data:image/webp;base64,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" alt="Foto van Austyn Ntoubandi" width="640" height="800">
+      <div>
+        <p class="eyebrow"><span class="nl">Over Porter Security</span><span class="en">About Porter Security</span></p>
+        <h2 id="about-h" style="margin-top:12px"><span class="nl">Een vast aanspreekpunt, geen callcenter.</span><span class="en">One point of contact, no call centre.</span></h2>
+        <p class="lede">
+          <span class="nl">Ik ben Austyn Ntoubandi, oprichter van Porter Security. Ik studeer systeem- en netwerkbeheer aan HOGENT, met focus op cybersecurity, en richtte Porter Security op omdat goede beveiliging ook voor kleine bedrijven haalbaar en betaalbaar moet zijn. U spreekt altijd rechtstreeks met mij, in het Nederlands, Frans of Engels.</span>
+          <span class="en">I'm Austyn Ntoubandi, founder of Porter Security. I study systems and network administration at HOGENT with a focus on cybersecurity, and started Porter Security because good security should be practical and affordable for small businesses too. You always talk to me directly, in Dutch, French or English.</span>
+        </p>
+        <div class="facts">
+          <span class="nl">Op afstand</span><span class="en">Remote</span><span>NL &middot; FR &middot; EN</span><span>Microsoft 365</span><span>NIS2</span><span>CyberFundamentals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" aria-labelledby="faq-h">
+    <div class="sec-head">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-h"><span class="nl">Veelgestelde vragen</span><span class="en">Frequently asked questions</span></h2>
+    </div>
+    <div class="faq">
+      <details><summary><span class="nl">Valt mijn bedrijf onder NIS2?</span><span class="en">Does NIS2 apply to my business?</span></summary><p><span class="nl">Dat hangt af van uw sector en grootte; in principe gaat het om middelgrote en grote organisaties. Ook als u er niet rechtstreeks onder valt, vragen klanten die er wel onder vallen vaak dat hun leveranciers in orde zijn. Tijdens de kennismaking zoeken we het samen uit.</span><span class="en">It depends on your sector and size; in principle it covers medium-sized and large organisations. Even if it doesn't apply directly, customers who are covered often require their suppliers to comply. We check it together during the intro call.</span></p></details>
+      <details><summary><span class="nl">Moet ik een lang contract tekenen?</span><span class="en">Do I have to sign a long contract?</span></summary><p><span class="nl">Nee. De abonnementen zijn maandelijks opzegbaar.</span><span class="en">No. Plans can be cancelled monthly.</span></p></details>
+      <details><summary><span class="nl">Werkt u ook als ik geen Microsoft 365 gebruik?</span><span class="en">Do you work with businesses that don't use Microsoft 365?</span></summary><p><span class="nl">Ja, maar Microsoft 365 is onze specialiteit. Gebruikt u Google Workspace of iets anders, dan bekijken we wat haalbaar is.</span><span class="en">Yes, though Microsoft 365 is our specialty. If you use Google Workspace or something else, we'll look at what's possible.</span></p></details>
+      <details><summary><span class="nl">Moet u op kantoor langskomen?</span><span class="en">Do you need to come on site?</span></summary><p><span class="nl">Bijna alles gebeurt op afstand, dus het maakt niet uit waar u zit. Voor de start of een training komen we in België ook graag langs.</span><span class="en">Almost everything is done remotely, so it doesn't matter where you are. In Belgium we're also happy to visit for the kick-off or a training.</span></p></details>
+      <details><summary><span class="nl">Wat als we toch gehackt worden?</span><span class="en">What if we get hacked anyway?</span></summary><p><span class="nl">Dan helpen we u de schade te beperken en de juiste stappen te zetten. Waar nodig schakelen we een gespecialiseerd incidentteam in. Hoe sneller u ons verwittigt, hoe beter.</span><span class="en">We help you limit the damage and take the right steps. Where needed, we bring in a specialised incident response team. The sooner you let us know, the better.</span></p></details>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-h" style="margin-top:12px"><span class="nl">Plan een gratis kennismaking van 30 minuten.</span><span class="en">Book a free 30-minute intro call.</span></h2>
+        <p class="lede" style="margin-top:16px"><span class="nl">Vertel kort wie u bent en wat u zoekt. U krijgt binnen 1 werkdag antwoord.</span><span class="en">Tell us briefly who you are and what you need. You'll hear back within 1 business day.</span></p>
+        <p style="margin-top:22px"><span class="nl">Of mail rechtstreeks:</span><span class="en">Or email directly:</span><br><a class="mail" id="mail" href="mailto:austynntoubandi@gmail.com">austynntoubandi@gmail.com</a></p>
+      </div>
+      <form id="contact-form" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <div class="row2">
+          <label for="f-name"><span class="nl">Naam</span><span class="en">Name</span><input id="f-name" name="name" required autocomplete="name"></label>
+          <label for="f-company"><span class="nl">Bedrijf</span><span class="en">Company</span><input id="f-company" name="company" autocomplete="organization"></label>
+        </div>
+        <label for="f-email"><span class="nl">E-mail</span><span class="en">Email</span><input id="f-email" name="email" type="email" required autocomplete="email"></label>
+        <label for="f-size"><span class="nl">Aantal medewerkers</span><span class="en">Number of staff</span>
+          <select id="f-size" name="size"><option>1 - 5</option><option>6 - 25</option><option>26 - 50</option><option>50+</option></select>
+        </label>
+        <label for="f-msg"><span class="nl">Waarmee kunnen we helpen?</span><span class="en">How can we help?</span><textarea id="f-msg" name="message"></textarea></label>
+        <button class="btn primary" type="submit" id="f-send"><span class="nl">Verstuur aanvraag</span><span class="en">Send request</span></button>
+        <p class="ok-msg" id="f-ok" hidden></p>
+        <p class="fine" style="margin-top:0"><span class="nl">We gebruiken uw gegevens alleen om uw aanvraag te beantwoorden.</span><span class="en">We only use your details to answer your request.</span></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Porter Security</span>
+    <span><a href="#top"><span class="nl">Terug naar boven</span><span class="en">Back to top</span></a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function setLang(l){
+    root.setAttribute('data-lang',l); root.lang=l;
+    document.getElementById('btn-nl').setAttribute('aria-pressed',String(l==='nl'));
+    document.getElementById('btn-en').setAttribute('aria-pressed',String(l==='en'));
+    try{localStorage.setItem('porter-lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('porter-lang')}catch(e){}
+  setLang(saved==='en'?'en':'nl');
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
+
+  var form=document.getElementById('contact-form'), ok=document.getElementById('f-ok');
+  var TO='austynntoubandi@gmail.com';
+  var ENDPOINT='https://formsubmit.co/ajax/'+TO;
+  var send=document.getElementById('f-send');
+  function msg(text,warn){ok.hidden=false;ok.style.borderLeftColor=warn?'var(--warn)':'';ok.textContent=text;}
+  function mailtoFallback(d){
+    var body='Naam: '+d.name+'\nBedrijf: '+d.company+'\nE-mail: '+d.email+'\nMedewerkers: '+d.size+'\n\n'+d.message;
+    window.location.href='mailto:'+TO+'?subject='+encodeURIComponent('Aanvraag kennismaking: '+(d.company||d.name))+'&body='+encodeURIComponent(body);
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var en=root.getAttribute('data-lang')==='en';
+    var d={name:form.name.value.trim(),company:form.company.value.trim(),email:form.email.value.trim(),size:form.size.value,message:form.message.value.trim()};
+    if(!d.name||!/^\S+@\S+\.\S+$/.test(d.email)){
+      msg(en?'Please fill in your name and a valid email address.':'Vul uw naam en een geldig e-mailadres in.',true);
+      return;
+    }
+    if(form._honey.value){msg(en?'Thanks, we will be in touch.':'Bedankt, we nemen contact op.');return;}
+    send.disabled=true; msg(en?'Sending...':'Bezig met versturen...');
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({Naam:d.name,Bedrijf:d.company,'E-mail':d.email,Medewerkers:d.size,Bericht:d.message,
+        _replyto:d.email,_subject:'Nieuwe aanvraag via Porter Security: '+(d.company||d.name),_template:'table',_captcha:'false'})})
+    .then(function(r){return r.json().then(function(j){if(!r.ok||String(j.success)!=='true')throw new Error('fail');});})
+    .then(function(){
+      form.reset();
+      msg(en?('Thanks, '+d.name+'. Your request has been sent. You will hear back within 1 business day.'):('Bedankt, '+d.name+'. Uw aanvraag is verstuurd. U krijgt binnen 1 werkdag antwoord.'));
+    })
+    .catch(function(){
+      msg(en?'Sending did not work. Your email app will open with your message ready to send.':'Versturen lukte niet. Uw mailprogramma opent nu met uw bericht klaar om te verzenden.',true);
+      mailtoFallback(d);
+    })
+    .finally(function(){send.disabled=false;});
+  });
+})();
+</script>
+
+</body></html>
