@@ -386,7 +386,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-bet
         <p style="margin-top:22px"><span class="nl">Of mail rechtstreeks:</span><span class="en">Or email directly:</span><br><a class="mail" id="mail" href="mailto:austynntoubandi@gmail.com">austynntoubandi@gmail.com</a></p>
       </div>
       <form id="contact-form" novalidate>
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        
         <div class="row2">
           <label for="f-name"><span class="nl">Naam</span><span class="en">Name</span><input id="f-name" name="name" required autocomplete="name"></label>
           <label for="f-company"><span class="nl">Bedrijf</span><span class="en">Company</span><input id="f-company" name="company" autocomplete="organization"></label>
@@ -406,7 +406,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-bet
 
 <footer>
   <div class="wrap">
-    <span>&copy; 2026 Porter Security &middot; <a href="privacy.html"><span class="nl">Privacybeleid</span><span class="en">Privacy policy</span></a></span>
+    <span>&copy; 2026 Porter Security &middot; Btw BE 1021.587.469 &middot; <a href="privacy.html"><span class="nl">Privacybeleid</span><span class="en">Privacy policy</span></a></span>
     <span><a href="#top"><span class="nl">Terug naar boven</span><span class="en">Back to top</span></a></span>
   </div>
 </footer>
@@ -424,7 +424,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-bet
   setLang(saved==='en'?'en':'nl');
   document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
 
-  var form=document.getElementById('contact-form'), ok=document.getElementById('f-ok');
+  var form=document.getElementById('contact-form'), ok=document.getElementById('f-ok'); var t0=Date.now();
   var TO='austynntoubandi@gmail.com';
   var ENDPOINT='https://formsubmit.co/ajax/'+TO;
   var send=document.getElementById('f-send');
@@ -441,7 +441,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-bet
       msg(en?'Please fill in your name and a valid email address.':'Vul uw naam en een geldig e-mailadres in.',true);
       return;
     }
-    if(form._honey.value){msg(en?'Thanks, we will be in touch.':'Bedankt, we nemen contact op.');return;}
+    if(Date.now()-t0<3000){msg(en?'Please wait a moment and try again.':'Wacht even en probeer opnieuw.',true);return;}
     send.disabled=true; msg(en?'Sending...':'Bezig met versturen...');
     fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({Naam:d.name,Bedrijf:d.company,'E-mail':d.email,Medewerkers:d.size,Bericht:d.message,
